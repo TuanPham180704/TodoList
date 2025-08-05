@@ -1,7 +1,8 @@
-.todoList{
+.todoList {
   padding: 3rem;
 }
-.todoListContainer{
+
+.todoListContainer {
   background-color: #fff;
   max-width: 40rem;
   padding: 2rem;
@@ -9,4 +10,46 @@
   margin-right: auto;
   border-radius: 1rem;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================
+   📌 Responsive
+   =========================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .todoList {
+    padding: 2.5rem;
+  }
+
+  .todoListContainer {
+    max-width: 36rem;
+    padding: 1.8rem;
+  }
+}
+
+/* Điện thoại lớn (6.7 inch ~ 428px) */
+@media (max-width: 428px) {
+  .todoList {
+    padding: 2rem;
+  }
+
+  .todoListContainer {
+    max-width: 90%;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+  }
+}
+
+/* Điện thoại vừa (6.1 inch ~ 390px) */
+@media (max-width: 390px) {
+  .todoList {
+    padding: 1.5rem;
+  }
+
+  .todoListContainer {
+    max-width: 95%;
+    padding: 1.2rem;
+    border-radius: 0.7rem;
+  }
 }

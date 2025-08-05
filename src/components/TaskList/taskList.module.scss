@@ -11,8 +11,8 @@
 
 .task {
   display: flex;
-  align-items: flex-start;
   align-items: center;
+
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
@@ -29,7 +29,7 @@
   max-width: 70%;
   padding: 0 0 0.5rem;
   color: #383f50;
-  font-size: 1.6rem; 
+  font-size: 1.6rem;
 
   &.taskNameDone {
     color: #b2b7bb;
@@ -48,4 +48,85 @@
   flex: 0 0 3.5rem;
   max-width: 3.5rem;
   font-size: 1.8rem;
+}
+
+/* ===========================
+   📌 Responsive
+   =========================== */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .taskName {
+    font-size: 1.4rem;
+  }
+
+  .taskBtn {
+    font-size: 1.6rem;
+  }
+}
+
+/* Điện thoại lớn (6.7 inch ~ 428px) */
+@media (max-width: 428px) {
+  .title {
+    font-size: 17px;
+    text-align: center;
+  }
+
+  .task {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .taskCheckbox {
+    flex: 0 0 15%;
+    max-width: 15%;
+    height: 1.8rem;
+  }
+
+  .taskName {
+    flex: 0 0 65%;
+    max-width: 65%;
+    font-size: 1.4rem;
+  }
+
+  .taskActions {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  .taskBtn {
+    font-size: 1.5rem;
+  }
+}
+
+/* Điện thoại vừa (6.1 inch ~ 390px) */
+@media (max-width: 390px) {
+  .title {
+    font-size: 16px;
+  }
+
+  .taskCheckbox {
+    flex: 0 0 20%;
+    max-width: 20%;
+    height: 1.6rem;
+  }
+
+  .taskName {
+    flex: 0 0 60%;
+    max-width: 60%;
+    font-size: 1.3rem;
+  }
+
+  .taskActions {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+
+  .taskBtn {
+    font-size: 1.4rem;
+  }
 }
