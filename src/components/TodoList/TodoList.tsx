@@ -1,30 +1,47 @@
 import { Todo } from '../../@types/todo.type'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TaskInput from '../TaskInput'
 import TaskList from '../TaskList'
 import styles from './todoList.module.scss'
+
+interface HandleNewTodos {
+  (todos: Todo[]): Todo[]
+}
+const syncReactToLocal = (handleNewTodos: HandleNewTodos) => {
+  const todosString = localStorage.getItem('todos')
+  const todosObj: Todo[] = JSON.parse(todosString || '[]')
+  const newTodosObj = handleNewTodos(todosObj)
+  localStorage.setItem('todos', JSON.stringify(newTodosObj))
+}
 export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [currentTodo, setCurrentTodo] = useState<Todo | null>(null)
   const doneTodoList = todos.filter((todo) => todo.done)
   const notDoneTask = todos.filter((todo) => !todo.done)
+  useEffect(() => {
+    const todosString = localStorage.getItem('todos')
+    const todosObj: Todo[] = JSON.parse(todosString || '[]')
+    setTodos(todosObj)
+  }, [])
+
   const addTodo = (name: string) => {
     const todo: Todo = {
       name,
       done: false,
       id: new Date().toISOString()
     }
+    const handler = (todosObj: Todo[]) => {
+      return [...todosObj, todo]
+    }
     setTodos((prev) => [...prev, todo])
+    syncReactToLocal(handler)
   }
   const handleDoneTodo = (id: string, done: boolean) => {
-    setTodos((prev) => {
-      return prev.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, done }
-        }
-        return todo
-      })
-    })
+    const handler = (prev: Todo[]) => {
+      return prev.map((todo) => (todo.id === id ? { ...todo, done } : todo))
+    }
+    setTodos(handler)
+    syncReactToLocal(handler) 
   }
   const startEditTodo = (id: string) => {
     const finedTodo = todos.find((todo) => todo.id === id)
@@ -41,33 +58,37 @@ export default function TodoList() {
     })
   }
   const finishEditTodo = () => {
-    setTodos((prev) => {
-      return prev.map((todo) => {
-        if (todo.id == (currentTodo as Todo).id) {
+    const handler = (todObj: Todo[]) => {
+      return todObj.map((todo) => {
+        if (todo.id === (currentTodo as Todo).id) {
           return currentTodo as Todo
         }
         return todo
       })
-    })
+    }
+    setTodos(handler)
+    setCurrentTodo(null)
+    syncReactToLocal(handler)
   }
   const deleteTodo = (id: string) => {
     if (currentTodo) {
       setCurrentTodo(null)
     }
-    setTodos((prev) => {
-      const finedIndexTodo = prev.findIndex((todo) => todo.id === id)
+    const handler = (todObj: Todo[]) => {
+      const finedIndexTodo = todObj.findIndex((todo) => todo.id === id)
       if (finedIndexTodo > -1) {
-        const result = [...prev]
+        const result = [...todObj]
         result.splice(finedIndexTodo, 1)
         return result
       }
-      return prev
-    })
+      return todObj
+    }
+    setTodos(handler)
+    syncReactToLocal(handler)
   }
   return (
     <div className={styles.todoList}>
       <div className={styles.todoListContainer}>
-        <h2>Hello</h2>
         <TaskInput addTodo={addTodo} currentTodo={currentTodo} editTodo={editTodo} finishEditTodo={finishEditTodo} />
         <TaskList
           todos={notDoneTask}
