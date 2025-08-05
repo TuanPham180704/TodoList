@@ -7,10 +7,11 @@ interface taskListDone {
   todos: Todo[]
   handleDoneTodo: (id: string, done: boolean) => void
   startEditTodo: (id: string) => void
+  deleteTodo: (id: string) => void
 }
 
 export default function TaskList(props: taskListDone) {
-  const { doneTaskList, todos, handleDoneTodo, startEditTodo } = props
+  const { doneTaskList, todos, handleDoneTodo, startEditTodo, deleteTodo } = props
   const onhandleChangTodo = (idTodo: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     handleDoneTodo(idTodo, e.target.checked)
   }
@@ -31,7 +32,9 @@ export default function TaskList(props: taskListDone) {
               <button className={styles.taskBtn} onClick={() => startEditTodo(todo.id)}>
                 🖋️
               </button>
-              <button className={styles.taskBtn}>🗑️</button>
+              <button className={styles.taskBtn} onClick={() => deleteTodo(todo.id)}>
+                🗑️
+              </button>
             </div>
           </div>
         ))}
