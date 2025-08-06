@@ -89,7 +89,7 @@ export default function TodoList() {
   return (
     <div className={styles.todoList}>
       <div className={styles.todoListContainer}>
-        <TaskInput addTodo={addTodo} currentTodo={currentTodo} editTodo={editTodo} finishEditTodo={finishEditTodo} />
+        <TaskInput addTodo={addTodo} currentTodo={currentTodo} editTodo={editTodo} finishEditTodo={finishEditTodo}  />
         <TaskList
           todos={notDoneTask}
           handleDoneTodo={handleDoneTodo}
