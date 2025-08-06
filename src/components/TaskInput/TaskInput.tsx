@@ -3,6 +3,8 @@ import styles from './taskInput.module.scss'
 import { Todo } from '../../@types/todo.type'
 import connect, { ExtraInfoType } from '../../HOC/connect'
 import { log } from 'console'
+import Title from '../../Title'
+
 
 interface TaskInputTodo  extends ExtraInfoType{
   addTodo: (name: string) => void
@@ -14,8 +16,9 @@ interface TaskInputTodo  extends ExtraInfoType{
 function TaskInput(props: TaskInputTodo) {
   const { addTodo, currentTodo, editTodo, finishEditTodo ,debug} = props
   const [name, setTodo] = useState<string>('')
-  console.log(debug);
-  
+  const address = {
+    street : '10 Tran Hung Dao'
+  }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (currentTodo) {
@@ -38,7 +41,7 @@ function TaskInput(props: TaskInputTodo) {
 
   return (
     <div>
-      <h2 className={styles.title}>ToDoList TuanDanny🏠🪴</h2>
+      <Title address={address}/>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type='text'
