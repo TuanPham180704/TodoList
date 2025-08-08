@@ -14,6 +14,7 @@ const syncReactToLocal = (handleNewTodos: HandleNewTodos) => {
   localStorage.setItem('todos', JSON.stringify(newTodosObj))
 }
 export default function TodoList() {
+   // Test Error Boundary
   const [todos, setTodos] = useState<Todo[]>([])
   const [currentTodo, setCurrentTodo] = useState<Todo | null>(null)
   const doneTodoList = todos.filter((todo) => todo.done)
